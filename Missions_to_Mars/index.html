@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mars Information</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="jumbotron text-center">
+            <h1>Mission to Mars</h1>
+            <p>Latest Mars Data</p>
+            <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get Data!</a></p>
+        </div>
+
+        <div>
+            <h4>Latest Mars News</h4>
+            <h5>{{ info.title }}</h5>
+            <p>{{ info.paragraph }}</p>
+        </div>
+
+        <br>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+                <h4>Featured Mars Image</h4>
+                <img src="{{ info.featured_image_url }}" alt="picture of Mars">
+            </div>
+            <div class="col-sm">
+                <h4>Current Weather on Mars</h4>
+                <p>{{ info.mars_weather }}</p>
+            </div>
+            <div class="col-sm">
+                <h4>Mars Facts</h4>
+                <p>{{ info.mars_facts }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <br>
+
+        <div>
+          <h4>Mars Hemispheres</h4>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <h5>{{ info.Cerberus_title }}</h5>
+                <img src="{{ info.Cerberus_url }}" alt="picture of Cerberus">
+              </div>
+              <div class="col-sm">
+                <h5>{{ info.Schiaparelli_title }}</h6>
+                <img src="{{ info.Schiaparelli_url }}" alt="picture of Schiaparelli">
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  <h5>{{ info.Syrtis_title }}</h5>
+                  <img src="{{ info.Syrtis_url }}" alt="picture of Syrtis">
+                </div>
+                <div class="col-sm">
+                  <h5>{{ info.Valles_title }}</h5>
+                  <img src="{{ info.Valles_url }}" alt="picture of Valles">
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+</body>
+
+</html>

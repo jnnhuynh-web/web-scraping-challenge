@@ -1,27 +1,17 @@
-import numpy as np
-import datetime as dt
+from bs4 import BeautifulSoup
+import requests
 
-import sqlalchemy
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, func
+from splinter import Browser
+import pandas as pd
 
-from flask import Flask, jsonify
+from flask import Flask, render_template, render_template
+from flask_pymongo import pymongo
+import scrape_mars
 
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///Resources/hawaii.sqlite")
-
-# reflect an existing database into a new model
-Base = automap_base()
-# reflect the tables
-Base.prepare(engine, reflect=True)
-
-# Save reference to the table
-Station = Base.classes.station
-Measurement = Base.classes.measurement
-session = Session(engine)
+mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_info")
 
 #################################################
 # Flask Setup
@@ -34,8 +24,22 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    """List all available api routes."""
-    return ()
+
+    # Find one record of data from the mongo database
+    mars_data = mongo.db.collection.find_one()
+
+    # Return template and data
+    return render_template("index.html", info=mars_data)
+
+@app.route("/scrape")
+def scrape():
+    mars_info = scrape_mars.scrape_info()
+
+    # Update the Mongo database using update and upsert=True
+    mongo.db.collection.update({}, mars_info, upsert=True)
+
+    # Redirect back to home page
+    return redirect("/")
 
 
 if __name__ == '__main__':
